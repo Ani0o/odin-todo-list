@@ -6,11 +6,7 @@ class Project {
     }
 
     getTodo(id) {
-        this.todos.forEach(todo => {
-            if (todo.id === id) {
-                return todo;
-            }
-        });
+        return this.todos.find(todo => todo.id === id);
     }
 
     addTodo(todo) {
