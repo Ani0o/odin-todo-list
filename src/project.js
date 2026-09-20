@@ -5,8 +5,25 @@ class Project {
         this.todos = todos;
     }
 
+    getTodo(id) {
+        this.todos.forEach(todo => {
+            if (todo.id === id) {
+                return todo;
+            }
+        });
+    }
+
     addTodo(todo) {
         this.todos.push(todo);
+    }
+
+    updateTodo(id, priority, date) {
+        this.todos.forEach(todo => {
+            if (todo.id === id) {
+                todo.priority = priority;
+                todo.date = date;
+            }
+        });
     }
 
     deleteTodo(id) {

@@ -21,10 +21,4 @@ function createTodo(title, description, priority, date) {
     return new Todo(crypto.randomUUID(), title, description, priority, date, "false");
 }
 
-function updateTodo(todo, priority, date) {
-    todo.priority = priority;
-    todo.date = date;
-    return todo;
-}
-
-export { Todo, createTodo, updateTodo };
+export { Todo, createTodo };
