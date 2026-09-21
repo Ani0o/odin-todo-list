@@ -56,7 +56,8 @@ button, input {
 .side-nav {
     display: grid;
     grid-template-rows: 10vh 1fr;
-    padding: 1vw 1vw;
+    padding: 1vh 1vw;
+    padding-right: 0.5vw;
 }
 
 /* Nav Header */
@@ -137,4 +138,93 @@ button, input {
 .side-nav-project-list p:active {
     border: 1px solid gray;
     background-color: rgb(214, 254, 230);
+}
+
+
+/* Todo Section */
+
+.todo-section {
+    display: grid;
+    grid-template-rows: 7vh 1fr;
+    padding: 1vh 0.5vw;
+    border-left: 2px solid black;
+}
+
+/* Todo Section Header */
+
+.todo-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1vw;
+    border-bottom: 2px solid black;
+}
+
+.selected-project {
+    font-size: calc(0.5rem + 0.8vw + 0.8vh);
+    font-weight: bold;
+}
+
+.todo-section-header-buttons {
+    display: flex;
+    gap: 1vw;
+    width: 18vw;
+}
+
+.new-todo-button {
+    font-size: calc(0.2rem + 0.5vw + 0.5vh);
+    font-weight: bold;
+    padding: 2% 3%;
+    padding-left: 1.5%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(0, 154, 154);
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-todo-button img {
+    width: calc(10px + 0.6vw + 0.6vh);
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(125deg) brightness(109%) contrast(110%);
+}
+
+.new-todo-button:hover {
+    background-color: rgb(0, 134, 134);
+}
+
+.new-todo-button:active {
+    background-color: rgb(0, 154, 154);
+}
+
+.delete-project-button {
+    font-size: calc(0.2rem + 0.5vw + 0.5vh);
+    font-weight: bold;
+    padding: 2% 3%;
+    padding-left: 1.5%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 49, 111);
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-project-button img {
+    width: calc(10px + 0.6vw + 0.6vh);
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(125deg) brightness(109%) contrast(110%);
+}
+
+.delete-project-button:hover {
+    background-color: rgb(235, 29, 91);
+}
+
+.delete-project-button:active {
+    background-color: rgb(255, 49, 111);
 }
