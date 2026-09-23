@@ -50,7 +50,7 @@
                 <button class="new-todo-button"><img src="./icons/plus.svg">New Todo</button>
                 <button class="delete-project-button"><img src="./icons/delete.svg">Delete Project</button>
 
-                <dialog class="todo-dialog" open>
+                <dialog class="todo-dialog">
                     <form method="dialog">
                         <div>
                             <div>
@@ -109,6 +109,38 @@
                             <button class="edit-priority-button"><img src="./icons/edit.svg">Edit Priority</button>
                             <button class="edit-duedate-button"><img src="./icons/edit.svg">Edit Due Date</button>
                             <button class="delete-todo-button"><img src="./icons/delete.svg">Delete</button>
+
+                            <dialog class="edit-priority-dialog">
+                                <form>
+                                    <div>
+                                        <label for="edit-form-priority">Priority:</label>
+                                        <select id="edit-form-priority" name="priority">
+                                            <option value="1">Low</option>
+                                            <option value="2" selected>Medium</option>
+                                            <option value="3">High</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <button class="edit-priority-form-cancel-button" type="button" value="cancel" formnovalidate>Cancel</button>
+                                        <button class="edit-priority-form-submit-button" type="submit" value="submit">Add</button>
+                                    </div>
+                                </form>
+                            </dialog>
+
+                            <dialog class="edit-duedate-dialog">
+                                <form>
+                                    <div>
+                                        <label for="edit-form-duedate">Due Date:</label>
+                                        <input id="edit-form-duedate" type="date" name="duedate" required>
+                                    </div>
+                                    
+                                    <div>
+                                        <button class="edit-duedate-form-cancel-button" type="button" value="cancel" formnovalidate>Cancel</button>
+                                        <button class="edit-duedate-form-submit-button" type="submit" value="submit">Add</button>
+                                    </div>
+                                </form>
+                            </dialog>
                         </div>
                     </div>
                 </div>
