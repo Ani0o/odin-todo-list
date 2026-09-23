@@ -343,6 +343,10 @@ label {
     border-radius: 10px;
 }
 
+.todo-complete .todo-header {
+    border: 2px solid gray;
+}
+
 .todo-open {
     border: 2px solid blue;
     box-shadow: 0px 0px 5px rgb(67, 67, 255);
@@ -369,6 +373,27 @@ label {
     opacity: 1;
 }
 
+.todo-complete .checkbox {
+    background-image: url(./icons/check-circle.svg);
+    height: calc(20px + 0.6vw + 0.6vh);
+    width: calc(20px + 0.6vw + 0.6vh);
+}
+
+.todo-complete .todo-title {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.todo-complete .todo-priority {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.todo-complete .todo-duedate {
+    text-decoration: line-through;
+    color: gray;
+}
+
 /* Todo Header */
 
 .todo-header {
@@ -387,7 +412,9 @@ label {
     border: 2px solid blue;
     box-shadow: 0px 0px 5px rgb(67, 67, 255);
     transition: border-bottom 0.2s,
-                box-shadow 0.2s;
+                box-shadow 0.2s,
+                border-bottom-left-radius 0.3s,
+                border-bottom-right-radius 0.3s;;
 }
 
 .todo-header-left-wrapper {
@@ -396,14 +423,8 @@ label {
     gap: 1vw;
 }
 
-.checkbox-unchecked {
+.checkbox {
     background-image: url('./icons/circle-outline.svg');
-    height: calc(20px + 0.6vw + 0.6vh);
-    width: calc(20px + 0.6vw + 0.6vh);
-}
-
-.checkbox-checked {
-    background-image: url(./icons/check-circle.svg);
     height: calc(20px + 0.6vw + 0.6vh);
     width: calc(20px + 0.6vw + 0.6vh);
 }
