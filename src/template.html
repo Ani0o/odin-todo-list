@@ -49,6 +49,41 @@
             <div class="todo-section-header-buttons">
                 <button class="new-todo-button"><img src="./icons/plus.svg">New Todo</button>
                 <button class="delete-project-button"><img src="./icons/delete.svg">Delete Project</button>
+
+                <dialog class="todo-dialog" open>
+                    <form method="dialog">
+                        <div>
+                            <div>
+                                <label for="todo-form-title">Title:</label>
+                                <input id="todo-form-title" type="text" name="title" required>
+                            </div>
+
+                            <div>
+                                <label for="todo-form-description">Description:</label>
+                                <input id="todo-form-description" type="text" name="description" required>
+                            </div>
+
+                            <div>
+                                <label for="todo-form-priority">Priority:</label>
+                                <select id="todo-form-priority" name="priority">
+                                    <option value="1">Low</option>
+                                    <option value="2" selected>Medium</option>
+                                    <option value="3">High</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="todo-form-duedate">Due Date:</label>
+                                <input id="todo-form-duedate" type="date" name="duedate" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="todo-form-cancel-button" type="button" value="cancel" formnovalidate>Cancel</button>
+                            <button class="todo-form-submit-button" type="submit" value="submit">Add</button>
+                        </div>
+                    </form>
+                </dialog>
             </div>
         </div>
 
