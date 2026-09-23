@@ -19,10 +19,22 @@
         <div class="side-nav-header">
             <h2>Projects</h2>
             <button class="new-project-button"><img src="./icons/plus.svg">New Project</button>
+            <dialog class="project-dialog">
+                <form method="dialog">
+                        <div>
+                            <label for="project-form-title">Title:</label>
+                            <input id="project-form-title" type="text" name="title" required>
+                        </div>
+                        <div>
+                            <button class="project-form-cancel-button" type="button" value="cancel" formnovalidate>Cancel</button>
+                            <button class="project-form-submit-button" type="submit" value="submit">Add</button>
+                        </div>
+                </form>
+            </dialog>
         </div>
 
         <div class="side-nav-project-list">
-            <p class="project">My project</p>
+            <p class="project active-project">My project</p>
             <p class="project">Epik game</p>
             <p class="project">Crazy site</p>
             <p class="project">Portfolio</p>

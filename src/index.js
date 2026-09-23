@@ -16,3 +16,9 @@ window.projects = projects;
 updateProjects(retrieveData());
 
 console.log(projects);
+
+const newProject = document.querySelector('.new-project-button');
+const projectDialog = document.querySelector('.project-dialog');
+newProject.addEventListener('click', (e) => {
+    projectDialog.showModal();
+});
