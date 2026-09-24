@@ -1,4 +1,4 @@
-import { projects } from "./projectManager";
+import { changeComplete, projects, updateTodoInProject, deleteTodoFromProject } from "./projectManager.js";
 import editIcon from "./icons/edit.svg";
 import deleteIcon from "./icons/delete.svg";
 import { formatDistanceToNow } from "date-fns";
@@ -16,7 +16,7 @@ function displayProjects(selectedProject) {
         if (project.id === selectedProject.id) p.classList.add('active-project');
         p.setAttribute('data-id', project.id);
 
-        projectList.appendChild('p');
+        projectList.appendChild(p);
     });
     selectedProjectHeading.textContent = `# ${selectedProject.title}`;
 }
@@ -73,6 +73,12 @@ function displayTodos(selectedProject) {
         todoHeaderLeftWrapper.classList.add('todo-header-left-wrapper');
         checkbox.classList.add('checkbox');
         checkbox.setAttribute('data-id', todo.id);
+
+        checkbox.addEventListener('click', (e) => {
+            changeComplete(selectedProject.id, todo.id);
+            todoWrapper.classList.toggle('todo-complete');
+        });
+
         todoTitle.classList.add('todo-title');
         todoTitle.textContent = todo.title;
 
@@ -101,34 +107,72 @@ function displayTodos(selectedProject) {
         todoHeader.appendChild(todoHeaderLeftWrapper);
         todoHeader.appendChild(todoHeaderRightWrapper);
 
+        todoHeader.addEventListener('click', (e) => {
+            if (e.target.classList.contains('checkbox')) return;
+
+            todoWrapper.classList.toggle('todo-open');
+        });
+
         todoContentWrapper.classList.add('todo-content-wrapper');
         todoContent.classList.add('todo-content');
         todoDescription.classList.add('todo-description');
         todoDescription.textContent = todo.description;
         todoContentRightWrapper.classList.add('todo-content-right-wrapper');
+
         editPriorityButton.classList.add('edit-priority-button');
         editPriorityButton.setAttribute('data-id', todo.id);
         editPriorityButton.textContent = "Edit Priority";
         editPriorityIcon.src = editIcon;
+        editPriorityButton.addEventListener('click', (e) => {
+            editPriorityDialog.showModal();
+        });
         editPriorityButton.appendChild(editPriorityIcon);
+
         editDueDateButton.classList.add('edit-duedate-button');
         editDueDateButton.setAttribute('data-id', todo.id);
         editDueDateButton.textContent = "Edit Due Date";
         editDueDateIcon.src = editIcon;
+        editDueDateButton.addEventListener('click', (e) => {
+            editDueDateDialog.showModal();
+        });
         editDueDateButton.appendChild(editDueDateIcon);
+
         deleteTodoButton.classList.add('delete-todo-button');
         deleteTodoButton.setAttribute('data-id', todo.id);
         deleteTodoButton.textContent = "Delete";
         deleteTodoIcon.src = deleteIcon;
+        deleteTodoButton.addEventListener('click', (e) => {
+            const todoId = e.target.getAttribute('data-id');
+
+            deleteTodoFromProject(selectedProject.id, todoId);
+            displayTodos(selectedProject);
+        });
         deleteTodoButton.appendChild(deleteTodoIcon);
 
         editPriorityDialog.classList.add('edit-priority-dialog');
+        editPriorityDialog.setAttribute('data-id', todo.id);
+        editPriorityDialog.addEventListener('close', (e) => {
+            if (editPriorityDialog.returnValue === 'submit') {
+                const formData = new FormData(editPriorityForm);
+                const data = Object.fromEntries(formData.entries());
+                const todoId = e.target.getAttribute('data-id');
+
+                updateTodoInProject(selectedProject.id, todoId, data.priority, selectedProject.getTodo(todoId).date);
+                displayTodos(selectedProject);
+
+                editPriorityForm.reset();
+            }
+            editPriorityDialog.returnValue = '';
+        });
+
+        editPriorityForm.method = "dialog";
         editPriorityFormLabel.htmlFor = 'edit-form-priority';
         editPriorityFormSelect.id = 'edit-form-priority';
         editPriorityFormSelect.name = 'priority';
         editPriorityFormSelectOption1.value = '1';
         editPriorityFormSelectOption1.textContent = "Low";
         editPriorityFormSelectOption2.value = '2';
+        editPriorityFormSelectOption2.setAttribute('selected', 'selected');
         editPriorityFormSelectOption2.textContent = "Medium";
         editPriorityFormSelectOption3.value = '3';
         editPriorityFormSelectOption3.textContent = "High";
@@ -144,6 +188,11 @@ function displayTodos(selectedProject) {
         editPriorityFormCancelButton.value = 'cancel';
         editPriorityFormCancelButton.formNoValidate = true;
         editPriorityFormCancelButton.textContent = "Cancel";
+        editPriorityFormCancelButton.addEventListener('click', (e) => {
+            editPriorityForm.reset();
+            editPriorityDialog.close();
+        });
+
         editPriorityFormSubmitButton.classList.add('edit-priority-form-submit-button');
         editPriorityFormSubmitButton.type = 'submit';
         editPriorityFormSubmitButton.value = 'submit';
@@ -157,6 +206,21 @@ function displayTodos(selectedProject) {
         editPriorityDialog.appendChild(editPriorityForm);
 
         editDueDateDialog.classList.add('edit-duedate-dialog');
+        editDueDateDialog.setAttribute('data-id', todo.id);
+        editDueDateDialog.addEventListener('close', (e) => {
+            if (editDueDateDialog.returnValue === 'submit') {
+                const formData = new FormData(editDueDateForm);
+                const data = Object.fromEntries(formData.entries());
+                const todoId = e.target.getAttribute('data-id');
+
+                updateTodoInProject(selectedProject.id, todoId, selectedProject.getTodo(todoId).priority, data.duedate);
+                displayTodos(selectedProject);
+
+                editDueDateForm.reset();
+            }
+            editDueDateDialog.returnValue = '';
+        });
+        editDueDateForm.method = "dialog";
         editDueDateFormLabel.htmlFor = 'edit-form-duedate';
         editDueDateFormLabel.textContent = "Due Date:";
         editDueDateFormInput.id = 'edit-form-duedate';
@@ -172,6 +236,11 @@ function displayTodos(selectedProject) {
         editDueDateFormCancelButton.value = 'cancel';
         editDueDateFormCancelButton.formNoValidate = true;
         editDueDateFormCancelButton.textContent = "Cancel";
+        editDueDateFormCancelButton.addEventListener('click', (e) => {
+            editDueDateForm.reset();
+            editDueDateDialog.close();
+        });
+
         editDueDateFormSubmitButton.classList.add('edit-duedate-form-submit-button');
         editDueDateFormSubmitButton.type = 'submit';
         editDueDateFormSubmitButton.value = 'submit';
