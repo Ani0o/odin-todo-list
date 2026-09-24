@@ -9,8 +9,6 @@ import {
 import { storeData, retrieveData } from "./storage.js";
 import { displayProjects, displayTodos } from "./display.js";
 
-window.projects = projects;
-
 updateProjects(retrieveData());
 if (projects.length === 0) {
     addProject("My Project");
