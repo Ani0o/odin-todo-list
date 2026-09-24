@@ -1,4 +1,5 @@
 import { changeComplete, projects, updateTodoInProject, deleteTodoFromProject } from "./projectManager.js";
+import { storeData } from "./storage.js";
 import editIcon from "./icons/edit.svg";
 import deleteIcon from "./icons/delete.svg";
 import { formatDistanceToNow } from "date-fns";
@@ -77,6 +78,7 @@ function displayTodos(selectedProject) {
         checkbox.addEventListener('click', (e) => {
             changeComplete(selectedProject.id, todo.id);
             todoWrapper.classList.toggle('todo-complete');
+            storeData();
         });
 
         todoTitle.classList.add('todo-title');
@@ -146,6 +148,7 @@ function displayTodos(selectedProject) {
 
             deleteTodoFromProject(selectedProject.id, todoId);
             displayTodos(selectedProject);
+            storeData();
         });
         deleteTodoButton.appendChild(deleteTodoIcon);
 
@@ -159,6 +162,7 @@ function displayTodos(selectedProject) {
 
                 updateTodoInProject(selectedProject.id, todoId, data.priority, selectedProject.getTodo(todoId).date);
                 displayTodos(selectedProject);
+                storeData();
 
                 editPriorityForm.reset();
             }
@@ -215,6 +219,7 @@ function displayTodos(selectedProject) {
 
                 updateTodoInProject(selectedProject.id, todoId, selectedProject.getTodo(todoId).priority, data.duedate);
                 displayTodos(selectedProject);
+                storeData();
 
                 editDueDateForm.reset();
             }

@@ -4,10 +4,7 @@ import {
     addProject,
     updateProjects,
     deleteProject,
-    addTodoInProject,
-    updateTodoInProject,
-    deleteTodoFromProject,
-    changeComplete
+    addTodoInProject
 } from "./projectManager.js";
 import { storeData, retrieveData } from "./storage.js";
 import { displayProjects, displayTodos } from "./display.js";
@@ -23,8 +20,8 @@ if (projects.length === 0) {
 }
 
 let selectedProject = projects[0];
-
-console.log(projects);
+displayProjects(selectedProject);
+displayTodos(selectedProject);
 
 const newProjectButton = document.querySelector('.new-project-button');
 const projectDialog = document.querySelector('.project-dialog');
@@ -47,6 +44,7 @@ projectDialog.addEventListener('close', (e) => {
 
         addProject(data.title);
         displayProjects(selectedProject);
+        storeData();
 
         projectForm.reset();
     }
@@ -84,6 +82,7 @@ deleteProjectButton.addEventListener('click', (e) => {
     selectedProject = projects[0];
     displayProjects(selectedProject);
     displayTodos(selectedProject);
+    storeData();
 });
 
 const newTodoButton = document.querySelector('.new-todo-button');
@@ -107,6 +106,7 @@ todoDialog.addEventListener('close', (e) => {
 
         addTodoInProject(selectedProject.id, data.title, data.description, data.priority, data.duedate);
         displayTodos(selectedProject);
+        storeData();
 
         todoForm.reset();
     }
